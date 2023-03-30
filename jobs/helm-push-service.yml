@@ -9,6 +9,6 @@ helm-push-service:
     CHART_VERSION: $GitVersion_SemVer
   trigger:
     include:
-      - local: /jobs/helm-push.yml
+      - local: /helm-push.yml
   except:
     - merge_request
