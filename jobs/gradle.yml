@@ -15,5 +15,5 @@ build-gradle:
       - build
       - .gradle
   artifacts:
-    path:
+    paths:
       - build/helm/charts/
