@@ -1,9 +1,6 @@
 helm-push:
   stage: deploy
   image: dtzar/helm-kubectl:3.11.2
-  needs:
-    - job: build-gradle
-      artifacts: true
   script:
     - |
       echo $HELM_PASSWORD | helm registry login $HELM_URL -u $HELM_USER --password-stdin
