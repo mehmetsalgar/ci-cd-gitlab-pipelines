@@ -1,0 +1,7 @@
+helm-push:
+  stage: deploy
+  image: dtzar/helm-kubectl:3.6.2
+  script:
+    - |
+      echo "helm registry login fsmakka.azurecr.io --username $HELM_USER --password $HELM_PASSWORD"
+      echo "helm push /home/vsts/work/1/s/build/helm/charts/$CHART_NAME-$UMBRELLA_VERSION.tgz oci://fsmakka.azurecr.io/helm"

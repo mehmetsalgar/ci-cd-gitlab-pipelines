@@ -1,0 +1,14 @@
+helm-push-service:
+  stage: deploy
+  needs:
+    - job: determine-version
+      artifacts: true
+    - build-gradle
+  variables:
+    CHART_NAME: $SERVICE_CHART_NAME
+    CHART_VERSION: $GitVersion_SemVer
+  trigger:
+    include:
+      - local: /jobs/helm-push.yml
+  except:
+    - merge_request
