@@ -12,5 +12,6 @@ helm-push-service:
     include:
       - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
         file: '/jobs/helm-push.yml'
+    strategy: depend
   except:
     - merge_request
