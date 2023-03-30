@@ -1,5 +1,6 @@
 helm-push-service:
   stage: deploy
+  image: dtzar/helm-kubectl:3.11.2
   needs:
     - job: determine-version
       artifacts: true
@@ -8,12 +9,9 @@ helm-push-service:
   variables:
     CHART_NAME: $SERVICE_CHART_NAME
     CHART_VERSION: $GitVersion_SemVer
-  trigger:
-    include:
-      - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
-        file: '/jobs/helm-push.yml'
-      - artifact: build/
-        job: build-gradle
-    strategy: depend
+  script:
+    - |
+      echo $HELM_PASSWORD | helm registry login $HELM_URL -u $HELM_USER --password-stdin
+      helm push $CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH/helm
   except:
     - merge_request
