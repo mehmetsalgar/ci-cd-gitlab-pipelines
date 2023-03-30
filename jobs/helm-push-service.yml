@@ -9,6 +9,7 @@ helm-push-service:
     CHART_VERSION: $GitVersion_SemVer
   trigger:
     include:
-      - local: /helm-push.yml
+      - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
+        file: '/jobs/helm-push.yml'
   except:
     - merge_request
