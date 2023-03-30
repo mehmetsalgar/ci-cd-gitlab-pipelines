@@ -12,6 +12,6 @@ helm-push-service:
   script:
     - |
       echo $HELM_PASSWORD | helm registry login $HELM_URL -u $HELM_USER --password-stdin
-      helm push build/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH/helm
+      helm push build/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH
   except:
     - merge_request
