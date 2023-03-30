@@ -4,4 +4,4 @@ helm-push:
   script:
     - |
       echo $HELM_PASSWORD | helm registry login $HELM_URL -u $HELM_USER --password-stdin
-      helm push /builds/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH/helm
+      helm push /builds/org.salgar.fsm.akka/credit-score/build/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH/helm
