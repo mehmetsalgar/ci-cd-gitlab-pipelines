@@ -2,12 +2,11 @@ helm-push:
   stage: deploy
   image: dtzar/helm-kubectl:3.11.2
   needs:
-    - job: build-gradle
-      artifacts: true
+    - pipeline: $PARENT_PIPELINE_ID
+      job: build-gradle
   script:
     - |
       echo $HELM_PASSWORD | helm registry login $HELM_URL -u $HELM_USER --password-stdin
       echo "helm push /build/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH"
       helm push build/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH
-  dependencies:
-    - build-gradle
+
