@@ -9,4 +9,3 @@ helm-push:
       echo $HELM_PASSWORD | helm registry login $HELM_URL -u $HELM_USER --password-stdin
       echo "helm push /build/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH"
       helm push build/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH
-

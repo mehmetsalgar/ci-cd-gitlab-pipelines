@@ -1,0 +1,16 @@
+helm-push-umbrella:
+  stage: deploy
+  needs:
+    - job: determine-version
+      artifacts: true
+    - job: build-gradle
+      artifacts: true
+  variables:
+    CHART_NAME: $SERVICE_CHART_NAME
+    CHART_VERSION: $GitVersion_SemVer
+    PARENT_PIPELINE_ID: $CI_PIPELINE_ID
+  trigger:
+    include:
+      - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
+        file: '/jobs/helm-push.yml'
+    strategy: depend
