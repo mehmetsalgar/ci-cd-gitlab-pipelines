@@ -9,10 +9,10 @@ helm-push-service:
   variables:
     CHART_NAME: $SERVICE_CHART_NAME
     CHART_VERSION: $GitVersion_SemVer
-  script:
-    - |
-      echo $HELM_PASSWORD | helm registry login $HELM_URL -u $HELM_USER --password-stdin
-      echo "helm push /build/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH"
-      helm push build/helm/charts/$CHART_NAME-$CHART_VERSION.tgz oci://$HELM_URL$HELM_PATH
+  trigger:
+    include:
+      - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
+        file: '/jobs/helm-push.yml'
+    strategy: depend
   except:
     - merge_request
