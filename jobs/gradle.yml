@@ -7,7 +7,7 @@ build-gradle:
   script:
     - |
       export
-      gradle --build-cache --no-daemon build -Pversion=$GitVersion_SemVer
+      gradle --build-cache $GRADLE_COMMAND
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
