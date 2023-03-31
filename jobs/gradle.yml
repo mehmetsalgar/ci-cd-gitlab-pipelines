@@ -16,4 +16,4 @@ build-gradle:
       - .gradle
   artifacts:
     paths:
-      - build/helm/charts/
+      - build/helm/charts/*.tgz
