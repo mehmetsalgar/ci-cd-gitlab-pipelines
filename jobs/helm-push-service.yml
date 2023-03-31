@@ -1,6 +1,5 @@
 helm-push-service:
   stage: deploy
-  image: dtzar/helm-kubectl:3.11.2
   needs:
     - job: determine-version
       artifacts: true
