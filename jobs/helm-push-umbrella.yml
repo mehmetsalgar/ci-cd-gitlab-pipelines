@@ -6,7 +6,7 @@ helm-push-umbrella:
     - job: build-gradle
       artifacts: true
   variables:
-    CHART_NAME: $SERVICE_CHART_NAME
+    CHART_NAME: $UMBRELLA_CHART_NAME
     CHART_VERSION: $GitVersion_SemVer
     PARENT_PIPELINE_ID: $CI_PIPELINE_ID
   trigger:
