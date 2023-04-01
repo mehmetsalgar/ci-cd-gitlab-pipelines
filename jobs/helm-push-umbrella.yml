@@ -1,7 +1,7 @@
 helm-push-umbrella:
   stage: deploy
   needs:
-    - job: determine-version
+    - job: determine-version-umbrella
       artifacts: true
     - job: build-gradle
       artifacts: true
