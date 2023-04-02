@@ -7,7 +7,7 @@ build-gradle:
   script:
     - |
       export
-      gradle --build-cache $GRADLE_COMMAND
+      gradle --build-cache $GRADLE_COMMAND$BUILD_VERSION
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
