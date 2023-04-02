@@ -1,11 +1,5 @@
 helm-push-umbrella:
   stage: deploy
-  needs:
-    - job: build-gradle
-      artifacts: true
-  variables:
-    CHART_NAME: $UMBRELLA_CHART_NAME
-    PARENT_PIPELINE_ID: $CI_PIPELINE_ID
   trigger:
     include:
       - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
