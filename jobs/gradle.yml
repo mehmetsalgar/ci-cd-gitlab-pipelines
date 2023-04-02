@@ -1,8 +1,5 @@
 build-gradle:
   stage: build
-  needs:
-    - job: determine-version
-      artifacts: true
   image: gradle:7.6.1-jdk17-alpine
   script:
     - |
