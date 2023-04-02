@@ -1,5 +1,8 @@
 helm-push-umbrella:
   stage: deploy
+  dependency:
+    - job: build-gradle
+      artifacts: true
   trigger:
     include:
       - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
