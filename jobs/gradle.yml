@@ -14,3 +14,5 @@ build-gradle:
   artifacts:
     paths:
       - build/helm/charts/*.tgz
+  except:
+    - merge_request
