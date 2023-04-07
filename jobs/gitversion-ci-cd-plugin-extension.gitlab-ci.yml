@@ -5,7 +5,6 @@
   stage: .pre
   variables:
     GIT_STRATEGY: fetch
-    GIT_FETCH_EXTRA_FLAGS: --unshallow
     GIT_DEPTH: 0 # force a deep/non-shallow fetch need by gitversion
   cache: [] # caches and before / after scripts can mess things up
   before_script: []
