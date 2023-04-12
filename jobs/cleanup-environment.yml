@@ -1,0 +1,4 @@
+include:
+  - local: cleanup-argocd.yml
+  - local: cleanup-environment-repository.yml
+  - local: cleanup-umbrella-chart.yml

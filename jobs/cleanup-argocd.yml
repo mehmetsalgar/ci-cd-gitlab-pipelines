@@ -1,0 +1,6 @@
+helm-delete:
+  stage: deploy
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-4eyes-argocd'
+    branch: 'master'
+    strategy: depend

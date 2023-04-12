@@ -1,0 +1,6 @@
+delete-environment-branch:
+  stage: deploy
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-dev-environment'
+    branch: 'development'
+    strategy: depend
