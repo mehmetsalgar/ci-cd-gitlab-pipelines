@@ -1,8 +1,0 @@
-delete-umbrella-chart-branch:
-  stage: deploy
-  variables:
-    USE_CASE_3: "true"
-  trigger:
-    project: 'org.salgar.fsm.akka/fsm-akka-helm-umbrella-chart-gitlab'
-    branch: 'development'
-    strategy: depend
