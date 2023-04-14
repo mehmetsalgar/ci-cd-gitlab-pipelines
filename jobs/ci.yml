@@ -8,6 +8,10 @@ workflow:
       when: always
       variables:
         USE_CASE_2: "true"
+    - if: $CI_COMMIT_REF_NAME =~ /release/
+      when: always
+      variables:
+        USE_CASE_4: "true"
     - when: always
 
 include:
@@ -154,4 +158,54 @@ cleanup-pull-request-environment-umbrella-chart-branch:
   rules:
     - if: $USE_CASE_2 == "true"
       when: manual
+    - when: never
+
+continuous-deployment-release-create-branch:
+  stage: deploy
+  needs:
+    - job: determine-version
+      artifacts: true
+  variables:
+    BRANCH_NAME: $CI_COMMIT_REF_NAME
+    CREATE_BRANCH: "true"
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-helm-umbrella-chart-gitlab'
+    branch: 'development'
+    strategy: depend
+  rules:
+    - if: $USE_CASE_4 == "true"
+      when: always
+    - when: never
+
+continuous-deployment-release:
+  stage: deploy
+  needs:
+    - job: determine-version
+      artifacts: true
+    - continuous-deployment-release-create-branch
+  variables:
+    BRANCH_NAME: $CI_COMMIT_REF_NAME
+    SERVICE_CHART_VERSION: $GitVersion_SemVer
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-helm-umbrella-chart-gitlab'
+    branch: $CI_COMMIT_REF_NAME-$SOURCE_REPO
+    strategy: depend
+  rules:
+    - if: $USE_CASE_4 == "true"
+      when: always
+    - when: never
+
+continuous-deployment-release-prepare-environment:
+  stage: deploy
+  needs:
+    - continuous-deployment-release
+  variables:
+    BRANCH_NAME: $CI_COMMIT_REF_NAME-$SOURCE_REPO
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-4eyes-argocd'
+    branch: 'master'
+    strategy: depend
+  rules:
+    - if: $USE_CASE_4 == "true"
+      when: always
     - when: never
