@@ -65,6 +65,7 @@ continuous-deployment-pull-request-create-branch:
   needs:
     - job: determine-version
       artifacts: true
+    - helm-push-service
   variables:
     BRANCH_NAME: $CI_COMMIT_REF_NAME
     CREATE_BRANCH: "true"
