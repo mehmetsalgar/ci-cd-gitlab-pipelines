@@ -35,3 +35,7 @@ include:
     ref: 'development'
     rules:
       - if: $CI_COMMIT_REF_NAME == "master"
+  - local: '/composite/build.yml'
+    ref: 'development'
+    rules:
+      - if: $CI_COMMIT_REF_NAME != "master" && $CI_COMMIT_REF_NAME != "development"
