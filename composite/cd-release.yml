@@ -1,5 +1,7 @@
 include:
   - local: '/composite/build.yml'
+    ref: 'development'
+
 
 continuous-deployment-release-create-branch:
   stage: deploy

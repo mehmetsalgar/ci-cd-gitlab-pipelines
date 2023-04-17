@@ -1,5 +1,6 @@
 include:
   - local: '/composite/build.yml'
+    ref: 'development'
 
 determine-version:
   extends: .gitversion_function
