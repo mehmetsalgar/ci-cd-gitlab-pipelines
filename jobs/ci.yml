@@ -19,15 +19,15 @@ workflow:
     - when: always
 
 include:
-  - local: /composite/cd-deployment.yml'
+  - local: '/composite/cd-deployment.yml'
     rules:
       - if: $CI_COMMIT_REF_NAME == "development"
-  - local: /composite/cd-pull-request.yml'
+  - local: '/composite/cd-pull-request.yml'
     rules:
       - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  - local: /composite/cd-release.yml'
+  - local: '/composite/cd-release.yml'
     rules:
       - if: $CI_COMMIT_REF_NAME =~ /release/
-  - local: /composite/release-ga.yml'
+  - local: '/composite/release-ga.yml'
     rules:
       - if: $CI_COMMIT_REF_NAME == "master"
