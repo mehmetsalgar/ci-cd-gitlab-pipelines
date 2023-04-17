@@ -31,7 +31,3 @@ include:
     ref: 'development'
     rules:
       - if: $CI_COMMIT_REF_NAME =~ /release/
-  - local: '/composite/release-ga.yml'
-    ref: 'development'
-    rules:
-      - if: $CI_COMMIT_REF_NAME == "master"
