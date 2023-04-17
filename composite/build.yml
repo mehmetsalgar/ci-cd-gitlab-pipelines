@@ -1,3 +1,6 @@
+variables:
+  BUILD_VERSION: $GitVersion_SemVer
+
 include:
   - local: '/jobs/gitversion-ci-cd-plugin-extension.gitlab-ci.yml'
   - local: '/jobs/gradle.yml'
