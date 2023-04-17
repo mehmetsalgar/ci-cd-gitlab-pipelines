@@ -1,0 +1,11 @@
+release-ga:
+  stage: deploy
+  trigger:
+    include:
+      - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
+        file: '/composite/release-ga.yml'
+    strategy: depend
+  rules:
+    - if: $USE_CASE_8 == "true"
+      when: manual
+    - when: never
