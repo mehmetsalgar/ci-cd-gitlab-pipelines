@@ -12,12 +12,22 @@ workflow:
       when: always
       variables:
         USE_CASE_4: "true"
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: always
+      variables:
+        USE_CASE_8: "true"
     - when: always
 
 include:
   - local: '/jobs/gitversion-ci-cd-plugin-extension.gitlab-ci.yml'
+    rules:
+      - if: $USE_CASE_8 != "true"
   - local: '/jobs/gradle.yml'
+    rules:
+      - if: $USE_CASE_8 != "true"
   - local: '/jobs/helm-push-service.yml'
+    rules:
+      - if: $USE_CASE_8 != "true"
 
 determine-version:
   extends: .gitversion_function
@@ -259,5 +269,17 @@ cleanup-release-environment-umbrella-chart-branch:
     strategy: depend
   rules:
     - if: $USE_CASE_4 == "true"
+      when: manual
+    - when: never
+
+release-ga:
+  stage: deploy
+  trigger:
+    include: '/jobs/release-ga.yml'
+    forward:
+      pipeline_variables: true
+      yaml_variables: true
+  rules:
+    - if: $USE_CASE_8 == "true"
       when: manual
     - when: never
