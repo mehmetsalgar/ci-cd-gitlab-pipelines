@@ -21,11 +21,7 @@ workflow:
 include:
   - local: '/jobs/gitversion-ci-cd-plugin-extension.gitlab-ci.yml'
   - local: '/jobs/gradle.yml'
-    rules:
-      - if: $CI_COMMIT_REF_NAME != "master"
   - local: '/jobs/helm-push-service.yml'
-    rules:
-      - if: $CI_COMMIT_REF_NAME != "master"
 
 determine-version:
   extends: .gitversion_function
