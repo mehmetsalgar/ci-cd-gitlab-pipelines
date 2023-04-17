@@ -20,14 +20,18 @@ workflow:
 
 include:
   - local: '/composite/cd-deployment.yml'
+    ref: 'development'
     rules:
       - if: $CI_COMMIT_REF_NAME == "development"
   - local: '/composite/cd-pull-request.yml'
+    ref: 'development'
     rules:
       - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   - local: '/composite/cd-release.yml'
+    ref: 'development'
     rules:
       - if: $CI_COMMIT_REF_NAME =~ /release/
   - local: '/composite/release-ga.yml'
+    ref: 'development'
     rules:
       - if: $CI_COMMIT_REF_NAME == "master"
