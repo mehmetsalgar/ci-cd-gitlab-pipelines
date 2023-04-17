@@ -1,0 +1,103 @@
+include:
+  - local: '/composite/build.yml'
+
+continuous-deployment-release-create-branch:
+  stage: deploy
+  needs:
+    - job: determine-version
+      artifacts: true
+    - helm-push-service
+  variables:
+    BRANCH_NAME: $CI_COMMIT_REF_NAME
+    CREATE_BRANCH: "true"
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-helm-umbrella-chart-gitlab'
+    branch: 'development'
+    strategy: depend
+  rules:
+    - if: $USE_CASE_4 == "true"
+      when: always
+    - when: never
+
+continuous-deployment-release:
+  stage: deploy
+  needs:
+    - job: determine-version
+      artifacts: true
+    - continuous-deployment-release-create-branch
+  variables:
+    BRANCH_NAME: $CI_COMMIT_REF_NAME
+    SERVICE_CHART_VERSION: $GitVersion_SemVer
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-helm-umbrella-chart-gitlab'
+    branch: $CI_COMMIT_REF_NAME-$SOURCE_REPO
+    strategy: depend
+  rules:
+    - if: $USE_CASE_4 == "true"
+      when: always
+    - when: never
+
+continuous-deployment-release-prepare-environment:
+  stage: deploy
+  needs:
+    - continuous-deployment-release
+  variables:
+    BRANCH_NAME: $CI_COMMIT_REF_NAME-$SOURCE_REPO
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-4eyes-argocd'
+    branch: 'master'
+    strategy: depend
+  rules:
+    - if: $USE_CASE_4 == "true"
+      when: always
+    - when: never
+
+cleanup-release-environment-argocd:
+  stage: deploy
+  needs:
+    - continuous-deployment-release-prepare-environment
+  variables:
+    TARGET_BRANCH_NAME: $CI_COMMIT_REF_NAME
+    BRANCH_NAME: $CI_COMMIT_REF_NAME-$SOURCE_REPO
+    USE_CASE_5: "true"
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-4eyes-argocd'
+    branch: 'master'
+    strategy: depend
+  #  environment:
+  #    name: review/$CI_COMMIT_REF_SLUG
+  #    action: stop
+  rules:
+    - if: $USE_CASE_4 == "true"
+      when: manual
+    - when: never
+
+cleanup-release-environment-branch:
+  stage: deploy
+  needs:
+    - continuous-deployment-release-prepare-environment
+  variables:
+    USE_CASE_5: "true"
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-dev-environment'
+    branch: 'development'
+    strategy: depend
+  rules:
+    - if: $USE_CASE_4 == "true"
+      when: manual
+    - when: never
+
+cleanup-release-environment-umbrella-chart-branch:
+  stage: deploy
+  needs:
+    - continuous-deployment-release-prepare-environment
+  variables:
+    USE_CASE_5: "true"
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-helm-umbrella-chart-gitlab'
+    branch: 'development'
+    strategy: depend
+  rules:
+    - if: $USE_CASE_4 == "true"
+      when: manual
+    - when: never

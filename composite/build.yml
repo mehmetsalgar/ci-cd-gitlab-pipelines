@@ -2,3 +2,6 @@ include:
   - local: '/jobs/gitversion-ci-cd-plugin-extension.gitlab-ci.yml'
   - local: '/jobs/gradle.yml'
   - local: '/jobs/helm-push-service.yml'
+
+determine-version:
+  extends: .gitversion_function

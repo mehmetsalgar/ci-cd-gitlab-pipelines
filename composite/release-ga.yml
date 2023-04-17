@@ -1,0 +1,11 @@
+release-ga:
+  stage: deploy
+  trigger:
+    include: '/composite/build.yml'
+    forward:
+      pipeline_variables: true
+      yaml_variables: true
+  rules:
+    - if: $USE_CASE_8 == "true"
+      when: manual
+    - when: never

@@ -1,0 +1,24 @@
+include:
+  - local: '/composite/build.yml'
+
+determine-version:
+  extends: .gitversion_function
+
+continuous-deployment-development:
+  stage: deploy
+  needs:
+    - job: determine-version
+      artifacts: true
+    - helm-push-service
+  variables:
+    BRANCH_NAME: $CI_COMMIT_BRANCH
+    REPO_NAME: $CI_PROJECT_NAME
+    SERVICE_CHART_VERSION: $GitVersion_SemVer
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-helm-umbrella-chart-gitlab'
+    branch: 'development'
+    strategy: depend
+  rules:
+    - if: $USE_CASE_1 == "true"
+      when: always
+    - when: never
