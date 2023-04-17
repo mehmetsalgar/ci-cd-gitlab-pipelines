@@ -20,8 +20,6 @@ workflow:
 
 include:
   - local: '/jobs/gitversion-ci-cd-plugin-extension.gitlab-ci.yml'
-    rules:
-      - if: $CI_COMMIT_REF_NAME != "master"
   - local: '/jobs/gradle.yml'
     rules:
       - if: $CI_COMMIT_REF_NAME != "master"
