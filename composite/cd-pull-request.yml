@@ -1,6 +1,5 @@
 include:
   - local: '/jobs/gitversion-ci-cd-plugin-extension.gitlab-ci.yml'
-    ref: 'development'
 
 determine-version:
   extends: .gitversion_function
@@ -64,7 +63,7 @@ cleanup-pull-request-environment:
   trigger:
     include:
       - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
-        ref: 'development'
+
         file: '/composite/cleanup-environment.yml'
     strategy: depend
     forward:

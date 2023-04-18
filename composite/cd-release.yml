@@ -1,6 +1,5 @@
 include:
   - local: '/composite/build.yml'
-    ref: 'development'
 
 continuous-deployment-release-create-branch:
   stage: deploy
@@ -64,7 +63,6 @@ cleanup-release-environment:
   trigger:
     include:
       - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
-        ref: 'development'
         file: '/composite/cleanup-environment.yml'
     strategy: depend
     forward:
