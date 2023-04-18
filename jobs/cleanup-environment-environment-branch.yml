@@ -1,0 +1,11 @@
+cleanup-environment-environment-branch:
+  stage: deploy
+  needs:
+    - cleanup-environment-argocd
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-dev-environment'
+    branch: 'development'
+    strategy: depend
+    forward:
+      pipeline_variables: true
+      yaml_variables: true

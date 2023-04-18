@@ -1,0 +1,11 @@
+cleanup-environment-umbrella-chart-branch:
+  stage: deploy
+  needs:
+    - cleanup-environment-environment-branch
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-helm-umbrella-chart-gitlab'
+    branch: 'development'
+    strategy: depend
+    forward:
+      pipeline_variables: true
+      yaml_variables: true

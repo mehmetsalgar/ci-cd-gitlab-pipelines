@@ -1,0 +1,12 @@
+cleanup-environment-argocd:
+  stage: deploy
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-4eyes-argocd'
+    branch: 'master'
+    strategy: depend
+    forward:
+      pipeline_variables: true
+      yaml_variables: true
+  #  environment:
+  #    name: review/$CI_COMMIT_REF_SLUG
+  #    action: stop
