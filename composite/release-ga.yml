@@ -6,6 +6,9 @@ release-ga:
         ref: 'development'
         file: '/composite/build.yml'
     strategy: depend
+    forward:
+      pipeline_variables: true
+      yaml_variables: true
   rules:
     - if: $USE_CASE_8 == "true"
       when: manual

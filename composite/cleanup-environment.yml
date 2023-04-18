@@ -1,0 +1,31 @@
+cleanup-environment-argocd:
+  stage: deploy
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-4eyes-argocd'
+    branch: 'master'
+    strategy: depend
+  #  environment:
+  #    name: review/$CI_COMMIT_REF_SLUG
+  #    action: stop
+
+cleanup-environment-environment-branch:
+  stage: deploy
+  needs:
+    - cleanup-environment-argocd
+  variables:
+    USE_CASE_3: "true"
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-dev-environment'
+    branch: 'development'
+    strategy: depend
+
+cleanup-environment-umbrella-chart-branch:
+  stage: deploy
+  needs:
+    - cleanup-environment-environment-branch
+  variables:
+    USE_CASE_3: "true"
+  trigger:
+    project: 'org.salgar.fsm.akka/fsm-akka-helm-umbrella-chart-gitlab'
+    branch: 'development'
+    strategy: depend
