@@ -79,7 +79,7 @@ cleanup-pull-request-environment:
   trigger:
     include:
       - project: 'org.salgar.fsm.akka/ci-cd-gitlab-pipelines'
-        file: '/jobs/cleanup-environment-argocd.yml'
+        file: '/composite/cleanup-environment.yml'
     strategy: depend
     forward:
       pipeline_variables: true
