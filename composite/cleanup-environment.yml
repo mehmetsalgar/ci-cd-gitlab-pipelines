@@ -1,4 +1,4 @@
 include:
   - local: '/jobs/cleanup-environment-argocd.yml'
-  - local: '/jobs/cleanup-environment-environment-branch.yml'
-  - local: '/jobs/cleanup-environment-umbrella-chart-branch.yml'
+#  - local: '/jobs/cleanup-environment-environment-branch.yml'
+#  - local: '/jobs/cleanup-environment-umbrella-chart-branch.yml'
